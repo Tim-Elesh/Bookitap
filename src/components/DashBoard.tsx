@@ -1,9 +1,9 @@
-import { Box } from "@mui/joy"
+import { Box, Typography } from "@mui/joy"
 
 const DashBoard = () =>{
     return(
-        <Box sx={{height: '100vh'}}>
-            
+        <Box sx={{width: '100%', height: '100vh'}}>
+            <Typography>Hello</Typography>
         </Box>
     )
 }

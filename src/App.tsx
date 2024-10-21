@@ -8,7 +8,6 @@ import { Box, CssBaseline } from '@mui/joy';
 import SignUpPage from './pages/SignUpPage';
 import ForgotPassword from './pages/ForgotPassword';
 
-
 function App() {
   return (
     <Box>
