@@ -12,7 +12,7 @@ function Sidebar() {
       sx={{
         width: 250,
         height: '100vh',
-        bgcolor: 'background.level1',
+        bgcolor: 'background.level3',
         display: 'flex',
         flexDirection: 'column',
         p: 2,
@@ -20,18 +20,40 @@ function Sidebar() {
       }}
     >
       {/* Профиль пользователя */}
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+      <Box 
+      sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'space-between' 
+        }}
+      >
         <Avatar src="/static/images/avatar/1.jpg" alt="User Avatar" />
         <Typography>John Doe</Typography>
       </Box>
 
       {/* Навигационные ссылки */}
-      <Box sx={{ flexGrow: 1 }}>
-        <Button component={Link} to="/dashboard" variant="plain" fullWidth>
+      <Box sx={{ flexGrow: 1, width: '100%' }}>
+        <Button
+          component={Link}
+          to="/dashboard" variant="plain"
+          fullWidth
+          sx={{
+            display: 'flex' ,
+            justifyContent: 'space-between'
+          }}
+        >
           <BookIcon />
           Dashboard
         </Button>
-        <Button component={Link} to="/settings" variant="plain" fullWidth>
+        <Button
+          component={Link}
+          to="/settings" variant="plain"
+          fullWidth
+          sx={{
+            display: 'flex' , 
+            justifyContent: 'space-between'
+          }}
+        >
           <SettingsIcon />
           Settings
         </Button>

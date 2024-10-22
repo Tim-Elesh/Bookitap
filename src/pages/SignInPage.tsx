@@ -98,7 +98,7 @@ export default function JoySignInSideTemplate() {
               <IconButton variant="soft" color="primary" size="sm">
                 <BadgeRoundedIcon />
               </IconButton>
-              <Typography level="title-lg">Company logo</Typography>
+              <Typography level="title-lg">Bookitap</Typography>
             </Box>
             <ColorSchemeToggle />
           </Box>
@@ -128,12 +128,12 @@ export default function JoySignInSideTemplate() {
             <Stack sx={{ gap: 4, mb: 2 }}>
               <Stack sx={{ gap: 1 }}>
                 <Typography component="h1" level="h3">
-                  Sign in
+                  Войти
                 </Typography>
                 <Typography level="body-sm">
-                  First time?{' '}
+                  Впервые на сайте?{' '}
                   <Link href="/sign-up" level="title-sm">
-                    Sign up!
+                    Зарегистрируйтесь!
                   </Link>
                 </Typography>
               </Stack>
@@ -143,7 +143,7 @@ export default function JoySignInSideTemplate() {
                 fullWidth
                 startDecorator={<GoogleIcon />}
               >
-                Continue with Google
+                Войти через google
               </Button>
             </Stack>
             <Divider
@@ -169,12 +169,12 @@ export default function JoySignInSideTemplate() {
                 }}
               >
                 <FormControl required>
-                  <FormLabel>Email</FormLabel>
-                  <Input type="email" name="email" />
+                  <FormLabel>Почта</FormLabel>
+                  <Input type="email" placeholder="Введите свою почту…" name="email" />
                 </FormControl>
                 <FormControl required>
-                  <FormLabel>Password</FormLabel>
-                  <Input type="password" name="password" />
+                  <FormLabel>Пароль</FormLabel>
+                  <Input type="password" placeholder="Придумайте пароль…" name="password" />
                 </FormControl>
                 <Stack sx={{ gap: 4, mt: 2 }}>
                   <Box
@@ -186,11 +186,11 @@ export default function JoySignInSideTemplate() {
                   >
                     <Checkbox size="sm" label="Remember me" name="persistent" />
                     <Link href="/forgot-password" level="title-sm">
-                      Forgot your password?
+                      Забыли пароль?
                     </Link>
                   </Box>
                     <Button type="submit" fullWidth>
-                      Sign in
+                      Войти
                     </Button>
                 </Stack>
               </form>
