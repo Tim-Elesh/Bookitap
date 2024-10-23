@@ -21,18 +21,6 @@ const DashBoard = () => {
 
     return (
         <Box sx={{ width: '100%', height: '100vh' }}>
-            <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-            <Typography
-                level="h2"
-            >
-                Hello
-            </Typography>
-            <Typography
-                level="h2"
-            >
-                Tim
-            </Typography>
-            </Box>
             <BookSearch />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
                 {books.map((book: Book) => (

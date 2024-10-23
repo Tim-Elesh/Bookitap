@@ -17,6 +17,7 @@ import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import GoogleIcon from '../components/CustomIcons';
 import Link from '@mui/joy/Link';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -96,7 +97,7 @@ export default function JoySignInSideTemplate() {
           >
             <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
               <IconButton variant="soft" color="primary" size="sm">
-                <BadgeRoundedIcon />
+                <MenuBookIcon />
               </IconButton>
               <Typography level="title-lg">Bookitap</Typography>
             </Box>
@@ -184,7 +185,7 @@ export default function JoySignInSideTemplate() {
                       alignItems: 'center',
                     }}
                   >
-                    <Checkbox size="sm" label="Remember me" name="persistent" />
+                    <Checkbox size="sm" label="Запомнить меня" name="persistent" />
                     <Link href="/forgot-password" level="title-sm">
                       Забыли пароль?
                     </Link>

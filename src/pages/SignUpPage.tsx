@@ -14,9 +14,9 @@ import Typography from '@mui/joy/Typography';
 import Stack from '@mui/joy/Stack';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
-import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import GoogleIcon from '../components/CustomIcons';
 import Link from '@mui/joy/Link';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -96,7 +96,7 @@ export default function SignUpPage() {
           >
             <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
               <IconButton variant="soft" color="primary" size="sm">
-                <BadgeRoundedIcon />
+                <MenuBookIcon />
               </IconButton>
               <Typography level="title-lg">Bookitap</Typography>
             </Box>
@@ -128,12 +128,12 @@ export default function SignUpPage() {
             <Stack sx={{ gap: 4, mb: 2 }}>
               <Stack sx={{ gap: 1 }}>
                 <Typography component="h1" level="h3">
-                  Sign up
+                  Зарегистрироваться
                 </Typography>
                 <Typography level="body-sm">
-                  Already have account?{' '}
+                  Уже есть аккаунт?{' '}
                   <Link href="/" level="title-sm">
-                    Sign in!
+                    Войдите!
                   </Link>
                 </Typography>
               </Stack>
@@ -143,7 +143,7 @@ export default function SignUpPage() {
                 fullWidth
                 startDecorator={<GoogleIcon />}
               >
-                Continue with Google
+                Продолжить с google
               </Button>
             </Stack>
             <Divider
@@ -169,11 +169,11 @@ export default function SignUpPage() {
                 }}
               >
                 <FormControl required>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Почта</FormLabel>
                   <Input type="email" name="email" />
                 </FormControl>
                 <FormControl required>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Пароль</FormLabel>
                   <Input type="password" name="password" />
                 </FormControl>
                 <Stack sx={{ gap: 4, mt: 2 }}>
@@ -184,13 +184,13 @@ export default function SignUpPage() {
                       alignItems: 'center',
                     }}
                   >
-                    <Checkbox size="sm" label="Remember me" name="persistent" />
+                    <Checkbox size="sm" label="Запомнить меня" name="persistent" />
                     <Link href="/forgot-password" level="title-sm">
-                      Forgot your password?
+                      Забыли пароль?
                     </Link>
                   </Box>
                     <Button type="submit" fullWidth>
-                      Sign in
+                      Зарегистрироваться
                     </Button>
                 </Stack>
               </form>
