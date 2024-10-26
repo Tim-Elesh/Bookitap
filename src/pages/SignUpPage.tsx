@@ -17,6 +17,8 @@ import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import GoogleIcon from '../components/CustomIcons';
 import Link from '@mui/joy/Link';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -54,6 +56,10 @@ function ColorSchemeToggle(props: IconButtonProps) {
 const customTheme = extendTheme({ defaultColorScheme: 'dark' });
 
 export default function SignUpPage() {
+
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <CssVarsProvider theme={customTheme} disableTransitionOnChange>
       <CssBaseline />
@@ -165,7 +171,9 @@ export default function SignUpPage() {
                     password: formElements.password.value,
                     persistent: formElements.persistent.checked,
                   };
-                  alert(JSON.stringify(data, null, 2));
+                  
+                  login();
+                  navigate('/dashboard');
                 }}
               >
                 <FormControl required>

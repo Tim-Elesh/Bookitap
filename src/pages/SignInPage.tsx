@@ -14,7 +14,6 @@ import Typography from '@mui/joy/Typography';
 import Stack from '@mui/joy/Stack';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
-import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import GoogleIcon from '../components/CustomIcons';
 import Link from '@mui/joy/Link';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
