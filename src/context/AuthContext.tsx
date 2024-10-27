@@ -1,32 +1,43 @@
 // src/context/AuthContext.tsx
 import { createContext, useState, useContext, ReactNode } from 'react';
+import { signInWithPopup, signOut } from 'firebase/auth';
+import { auth, googleProvider } from '../firebase/firebaseConfig';
 
-// Типизация состояния контекста
 interface AuthContextType {
   isAuthenticated: boolean;
   login: () => void;
   logout: () => void;
+  loginWithGoogle: () => Promise<void>;
 }
 
-// Создаём контекст с начальным значением null
 const AuthContext = createContext<AuthContextType | null>(null);
 
-// Провайдер контекста
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Функции для управления авторизацией
   const login = () => setIsAuthenticated(true);
-  const logout = () => setIsAuthenticated(false);
+
+  const logout = async () => {
+    await signOut(auth);
+    setIsAuthenticated(false);
+  };
+
+  const loginWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error('Ошибка при входе через Google:', error);
+    }
+  };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, loginWithGoogle }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// Хук для доступа к контексту
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) {

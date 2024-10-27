@@ -17,9 +17,19 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, onClose }) => {
   }
 
   return (
-    <Box sx={{ width: '100%', height: '100vh', backgroundColor: 'white', padding: '16px', position: 'relative' }}>
+    <Box
+      sx={{
+        width: '100%',
+        height: '100vh',
+        backgroundColor: 'white',
+        padding: '16px',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
       <Typography level="h2">PDF Viewer</Typography>
-      <Button onClick={onClose} sx={{ marginBottom: '16px' }}>Close</Button>
       <Document
         file={pdfUrl}
         onLoadSuccess={onDocumentLoadSuccess}
@@ -31,6 +41,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({ pdfUrl, onClose }) => {
           Page {pageNumber} of {numPages || '--'}
         </Typography>
       </Box>
+      <Button onClick={onClose} sx={{ marginBottom: '16px', }}>Close</Button>
     </Box>
   );
 };

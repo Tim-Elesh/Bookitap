@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input, Box } from '@mui/joy';
+import SearchIcon from '@mui/icons-material/Search';
 
 interface SearchProps {
     searchQuery: string;
@@ -10,15 +11,30 @@ const Search: React.FC<SearchProps> = ({ searchQuery, setSearchQuery }) => {
     return (
         <Box
             sx={{
-            
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '16px',
+                padding: '4px',
+                borderRadius: '6px',
+                backgroundColor: '#fff',
             }}
         >
             <Input
-                placeholder="Search for a book..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                sx={{ marginBottom: '16px', width: '100%' , padding: '8px' }}
+                sx={{
+                    width: '100%',
+                    padding: '8px',
+                    outline: 'none',
+                    border: 'none',
+                    backgroundColor: '#fff',
+                    boxShadow: 'none',
+                }}
+                placeholder="Search for a book..."
+                color="primary"
             />
+            <SearchIcon color="primary"/>
         </Box>
     );
 };
