@@ -19,6 +19,8 @@ import Link from '@mui/joy/Link';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;

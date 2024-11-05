@@ -4,13 +4,15 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 // Конфигурация Firebase
 const firebaseConfig = {
-  apiKey: 'YOUR_API_KEY',
-  authDomain: 'YOUR_AUTH_DOMAIN',
-  projectId: 'YOUR_PROJECT_ID',
-  storageBucket: 'YOUR_STORAGE_BUCKET',
-  messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-  appId: 'YOUR_APP_ID',
+  apiKey: "AIzaSyC0LuOlefAlv3_oronYbC-bYSA_9qzb8as",
+  authDomain: "bookitap-49ea7.firebaseapp.com",
+  projectId: "bookitap-49ea7",
+  storageBucket: "bookitap-49ea7.firebasestorage.app",
+  messagingSenderId: "935643188782",
+  appId: "1:935643188782:web:176c4f26efc13a4c46d9bf",
+  measurementId: "G-C5HD2EY4F4"
 };
+
 
 // Инициализация Firebase
 const app = initializeApp(firebaseConfig);
