@@ -1,6 +1,5 @@
-// src/context/AuthContext.tsx
 import { createContext, useState, useContext, ReactNode } from 'react';
-import { signInWithPopup, signOut } from 'firebase/auth';
+import { signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, googleProvider } from '../firebase/firebaseConfig';
 
 interface AuthContextType {
@@ -8,6 +7,8 @@ interface AuthContextType {
   login: () => void;
   logout: () => void;
   loginWithGoogle: () => Promise<void>;
+  registerWithEmail: (email: string, password: string) => Promise<void>;
+  loginWithEmail: (email: string, password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -31,8 +32,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const registerWithEmail = async (email: string, password: string) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error('Ошибка при регистрации:', error);
+    }
+  };
+
+  const loginWithEmail = async (email: string, password: string) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error('Ошибка при входе с email/пароль:', error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, loginWithGoogle }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, loginWithGoogle, registerWithEmail, loginWithEmail }}>
       {children}
     </AuthContext.Provider>
   );

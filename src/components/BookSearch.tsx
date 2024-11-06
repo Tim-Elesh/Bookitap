@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Box, Typography } from '@mui/joy';
 import Search from './Search';
 import BookCard from './BookCard';
-import books, { Book } from '../data/books'; // Импортируем данные книг
+import books from '../data/books'; // Импортируем данные книг
 
 const BookSearch = () => {
     const [searchQuery, setSearchQuery] = useState('');

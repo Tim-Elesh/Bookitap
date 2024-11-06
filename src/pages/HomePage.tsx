@@ -13,7 +13,8 @@ const HomePage = () => {
                 justifyContent: 'space-between',
                 margin: 0,
                 padding: 0,
-                overflowX: 'hidden'
+                overflowX: 'hidden',
+                overflowY: 'hidden'
             }}
         >
             <Sidebar />
