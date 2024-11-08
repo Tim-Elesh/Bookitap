@@ -3,12 +3,12 @@ import IconButton from '@mui/joy/IconButton';
 import Menu from '@mui/joy/Menu';
 import MenuButton from '@mui/joy/MenuButton';
 import MenuItem from '@mui/joy/MenuItem';
-import MoreVert from '@mui/icons-material/MoreVert';
 import { Box, Typography } from '@mui/joy';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import BookIcon from '@mui/icons-material/AutoStories';
 import LogOutModal from '../Modals/LogOutModal';
+import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 
 export default function Header() {
@@ -51,7 +51,7 @@ export default function Header() {
                     slots={{ root: IconButton }}
                     slotProps={{ root: { variant: 'outlined', color: 'neutral' } }}
                 >
-                    <MoreVert />
+                    <MenuIcon />
                 </MenuButton>
                 <Menu>
                     <MenuItem
