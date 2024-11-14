@@ -1,5 +1,5 @@
 // src/components/PrivateRoute.tsx
-import { Navigate } from 'react-router-dom';
+import { Navigate, CircularProgress } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { ReactElement } from 'react';
 
@@ -9,14 +9,16 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute = ({ children }: PrivateRouteProps): ReactElement => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
 
-  // Если пользователь не авторизован, перенаправляем на страницу входа
-  if (!isAuthenticated) {
-    return <Navigate to="/sign-up" />;
+  if (loading) {
+    return <CircularProgress />;
   }
 
-  // Если авторизован, отображаем дочерние элементы (защищённый маршрут)
+  if (!isAuthenticated) {
+    return <Navigate to="/" />;
+  }
+
   return children;
 };
 

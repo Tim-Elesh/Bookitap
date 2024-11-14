@@ -17,6 +17,8 @@ import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import GoogleIcon from '../components/CustomIcons';
 import Link from '@mui/joy/Link';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -54,6 +56,25 @@ function ColorSchemeToggle(props: IconButtonProps) {
 const customTheme = extendTheme({ defaultColorScheme: 'dark' });
 
 export default function JoySignInSideTemplate() {
+  const { loginWithEmail } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event: React.FormEvent<SignInFormElement>) => {
+    event.preventDefault();
+    const formElements = event.currentTarget.elements;
+    
+    try {
+      await loginWithEmail(
+        formElements.email.value,
+        formElements.password.value
+      );
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Login error:', error);
+      // Handle error (show error message to user)
+    }
+  };
+
   return (
     <CssVarsProvider theme={customTheme} disableTransitionOnChange>
       <CssBaseline />
@@ -157,16 +178,7 @@ export default function JoySignInSideTemplate() {
             </Divider>
             <Stack sx={{ gap: 4, mt: 2 }}>
               <form
-                onSubmit={(event: React.FormEvent<SignInFormElement>) => {
-                  event.preventDefault();
-                  const formElements = event.currentTarget.elements;
-                  const data = {
-                    email: formElements.email.value,
-                    password: formElements.password.value,
-                    persistent: formElements.persistent.checked,
-                  };
-                  alert(JSON.stringify(data, null, 2));
-                }}
+                onSubmit={handleSubmit}
               >
                 <FormControl required>
                   <FormLabel>Почта</FormLabel>

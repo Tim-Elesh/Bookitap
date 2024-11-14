@@ -1,57 +1,85 @@
-import { createContext, useState, useContext, ReactNode } from 'react';
-import { signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { 
+  signInWithPopup, 
+  signOut, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  User
+} from 'firebase/auth';
 import { auth, googleProvider } from '../firebase/firebaseConfig';
 
 interface AuthContextType {
+  currentUser: User | null;
   isAuthenticated: boolean;
-  login: () => void;
-  logout: () => void;
-  loginWithGoogle: () => Promise<void>;
-  registerWithEmail: (email: string, password: string) => Promise<void>;
   loginWithEmail: (email: string, password: string) => Promise<void>;
+  loginWithGoogle: () => Promise<void>;
+  logout: () => Promise<void>;
+  registerWithEmail: (email: string, password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const login = () => setIsAuthenticated(true);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      setIsAuthenticated(!!user);
+      setLoading(false);
+    });
 
-  const logout = async () => {
-    await signOut(auth);
-    setIsAuthenticated(false);
+    return unsubscribe;
+  }, []);
+
+  const loginWithEmail = async (email: string, password: string) => {
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    setCurrentUser(result.user);
+    setIsAuthenticated(true);
   };
 
   const loginWithGoogle = async () => {
-    try {
-      await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      setCurrentUser(result.user);
       setIsAuthenticated(true);
-    } catch (error) {
-      console.error('Ошибка при входе через Google:', error);
-    }
+  };
+
+  const logout = async () => {
+      await signOut(auth);
+      setCurrentUser(null);
+      setIsAuthenticated(false);
   };
 
   const registerWithEmail = async (email: string, password: string) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+      setCurrentUser(result.user);
       setIsAuthenticated(true);
+      return result;
     } catch (error) {
-      console.error('Ошибка при регистрации:', error);
+      console.error('Registration error:', error);
+      throw error; // Re-throw to handle in the component
     }
   };
 
-  const loginWithEmail = async (email: string, password: string) => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      setIsAuthenticated(true);
-    } catch (error) {
-      console.error('Ошибка при входе с email/пароль:', error);
-    }
-  };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, loginWithGoogle, registerWithEmail, loginWithEmail }}>
+    <AuthContext.Provider 
+      value={{ 
+        currentUser, 
+        isAuthenticated, 
+        loginWithEmail, 
+        loginWithGoogle, 
+        logout, 
+        registerWithEmail 
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -60,7 +88,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth должен использоваться внутри AuthProvider');
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 };

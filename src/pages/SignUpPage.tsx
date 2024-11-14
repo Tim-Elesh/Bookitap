@@ -20,6 +20,8 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useState } from 'react';
+import Alert from '@mui/joy/Alert';
 
 
 interface FormElements extends HTMLFormControlsCollection {
@@ -59,8 +61,25 @@ const customTheme = extendTheme({ defaultColorScheme: 'dark' });
 
 export default function SignUpPage() {
 
-  const { login } = useAuth();
+  const { login, registerWithEmail } = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (event: React.FormEvent<SignInFormElement>) => {
+    event.preventDefault();
+    setError(null);
+    const formElements = event.currentTarget.elements;
+    
+    try {
+      await registerWithEmail(
+        formElements.email.value,
+        formElements.password.value
+      );
+      navigate('/dashboard');
+    } catch (error: any) {
+      setError(error.message || 'An error occurred during registration');
+    }
+  };
 
   return (
     <CssVarsProvider theme={customTheme} disableTransitionOnChange>
@@ -164,20 +183,7 @@ export default function SignUpPage() {
               or
             </Divider>
             <Stack sx={{ gap: 4, mt: 2 }}>
-              <form
-                onSubmit={(event: React.FormEvent<SignInFormElement>) => {
-                  event.preventDefault();
-                  const formElements = event.currentTarget.elements;
-                  const data = {
-                    email: formElements.email.value,
-                    password: formElements.password.value,
-                    persistent: formElements.persistent.checked,
-                  };
-                  
-                  login();
-                  navigate('/dashboard');
-                }}
-              >
+              <form onSubmit={handleSubmit}>
                 <FormControl required>
                   <FormLabel>Почта</FormLabel>
                   <Input type="email" name="email" />
@@ -204,6 +210,15 @@ export default function SignUpPage() {
                     </Button>
                 </Stack>
               </form>
+              {error && (
+                <Alert 
+                  color="danger" 
+                  variant="soft"
+                  sx={{ mt: 2 }}
+                >
+                  {error}
+                </Alert>
+              )}
             </Stack>
           </Box>
           <Box component="footer" sx={{ py: 3 }}>
