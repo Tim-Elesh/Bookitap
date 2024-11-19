@@ -8,7 +8,7 @@ import Header from "./Header";
 import { useAuth } from "../context/AuthContext";
 
 const DashBoard = () => {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, currentUser } = useAuth();
     const [open, setOpen] = useState(false);
     const [selectedBook, setSelectedBook] = useState<string | null>(null);
     const [books, setBooks] = useState<BookData[]>([]);
@@ -18,24 +18,22 @@ const DashBoard = () => {
 
     useEffect(() => {
         const loadBooks = async () => {
-            if (!isAuthenticated) {
-                setError('Please sign in to view books');
-                setLoading(false);
-                return;
-            }
-
             try {
+                setLoading(true);
                 const fetchedBooks = await fetchBooks();
                 setBooks(fetchedBooks);
             } catch (err) {
-                setError(err instanceof Error ? err.message : 'Failed to load books');
+                const errorMessage = err instanceof Error 
+                    ? err.message 
+                    : 'Ошибка при загрузке книг';
+                setError(errorMessage);
             } finally {
                 setLoading(false);
             }
         };
 
         loadBooks();
-    }, [isAuthenticated]);
+    }, []);
 
     const filteredBooks = books.filter((book) =>
         book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||

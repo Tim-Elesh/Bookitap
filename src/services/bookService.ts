@@ -1,6 +1,7 @@
 import { collection, getDocs, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage, auth } from '../firebase/firebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export interface BookData {
   id?: string;
@@ -12,18 +13,34 @@ export interface BookData {
 
 export const fetchBooks = async () => {
   try {
-    // Проверяем, аутентифицирован ли пользователь
-    if (!auth.currentUser) {
-      throw new Error('User must be authenticated to fetch books');
-    }
-
     const booksCollection = collection(db, 'books');
     const booksSnapshot = await getDocs(booksCollection);
-    const booksList = booksSnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    })) as BookData[];
-    return booksList;
+    
+    if (booksSnapshot.empty) {
+      return []; // Возвращаем пустой массив, если данных нет
+    }
+
+    const booksPromises = booksSnapshot.docs.map(async (doc) => {
+      const data = doc.data();
+      
+      // Проверяем наличие обязательных полей
+      if (!data.title || !data.author) {
+        console.warn(`Book ${doc.id} has missing required fields`);
+        return null;
+      }
+
+      return {
+        id: doc.id,
+        title: data.title,
+        author: data.author,
+        coverImage: data.coverImage || '', // Используем пустую строку если нет изображения
+        pdf: data.pdf || ''
+      };
+    });
+
+    // Фильтруем null значения
+    const books = await Promise.all(booksPromises);
+    return books.filter(book => book !== null);
   } catch (error) {
     console.error('Error fetching books:', error);
     throw error;
