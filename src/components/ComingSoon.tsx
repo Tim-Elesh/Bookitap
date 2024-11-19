@@ -1,5 +1,5 @@
 import { Sheet } from "@mui/joy"
-import Typography from "@mui/joy";
+import { Typography } from "@mui/joy";
 
 const ComingSoon = () =>{
   return(
@@ -8,7 +8,7 @@ const ComingSoon = () =>{
 
       }}
     >
-      <Typography level="h1">
+      <Typography level="h3">
         Coming Soon...
       </Typography>
     </Sheet>

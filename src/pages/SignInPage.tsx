@@ -19,6 +19,8 @@ import Link from '@mui/joy/Link';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Alert from '@mui/joy/Alert';
+import { useState } from 'react';
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -56,11 +58,22 @@ function ColorSchemeToggle(props: IconButtonProps) {
 const customTheme = extendTheme({ defaultColorScheme: 'dark' });
 
 export default function JoySignInSideTemplate() {
-  const { loginWithEmail } = useAuth();
+  const { loginWithEmail, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await loginWithGoogle();
+      navigate('/dashboard');
+    } catch (error: any) {
+      setError(error.message || 'An error occurred during Google sign-in');
+    }
+  };
 
   const handleSubmit = async (event: React.FormEvent<SignInFormElement>) => {
     event.preventDefault();
+    setError(null);
     const formElements = event.currentTarget.elements;
     
     try {
@@ -69,9 +82,8 @@ export default function JoySignInSideTemplate() {
         formElements.password.value
       );
       navigate('/dashboard');
-    } catch (error) {
-      console.error('Login error:', error);
-      // Handle error (show error message to user)
+    } catch (error: any) {
+      setError(error.message || 'An error occurred during sign in');
     }
   };
 
@@ -163,9 +175,19 @@ export default function JoySignInSideTemplate() {
                 color="neutral"
                 fullWidth
                 startDecorator={<GoogleIcon />}
+                onClick={handleGoogleSignIn}
               >
                 Войти через google
               </Button>
+              {error && (
+                <Alert 
+                  color="danger" 
+                  variant="soft"
+                  sx={{ mt: 2 }}
+                >
+                  {error}
+                </Alert>
+              )}
             </Stack>
             <Divider
               sx={(theme) => ({

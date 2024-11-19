@@ -61,7 +61,7 @@ const customTheme = extendTheme({ defaultColorScheme: 'dark' });
 
 export default function SignUpPage() {
 
-  const { login, registerWithEmail } = useAuth();
+  const { login, registerWithEmail, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
 
@@ -78,6 +78,15 @@ export default function SignUpPage() {
       navigate('/dashboard');
     } catch (error: any) {
       setError(error.message || 'An error occurred during registration');
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    try {
+      await loginWithGoogle();
+      navigate('/dashboard');
+    } catch (error: any) {
+      setError(error.message || 'An error occurred during Google sign-up');
     }
   };
 
@@ -169,6 +178,7 @@ export default function SignUpPage() {
                 color="neutral"
                 fullWidth
                 startDecorator={<GoogleIcon />}
+                onClick={handleGoogleSignUp}
               >
                 Продолжить с google
               </Button>

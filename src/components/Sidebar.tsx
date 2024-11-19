@@ -6,11 +6,16 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import BookIcon from '@mui/icons-material/AutoStories';
 import LogOutModal from '../Modals/LogOutModal';
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 
 function Sidebar() {
-
+  const { getUserEmail } = useAuth();
   const [isModalOpen, setModalOpen] = useState(false);
+
+  // Get user email and format it for display
+  const userEmail = getUserEmail();
+  const displayName = userEmail ? userEmail.split('@')[0] : 'User';
 
   const handleLogoutClick = () => {
     setModalOpen(true);
@@ -48,15 +53,23 @@ function Sidebar() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          gap: 2,
+          p: 2
         }}
       >
-        <Avatar src="/static/images/avatar/1.jpg" alt="User Avatar" />
+        <Avatar 
+          src="/static/images/avatar/1.jpg" 
+          alt={displayName}
+          size='sm'
+        />
         <Typography
           sx={{
-            color: '#fff'
+            color: '#fff',
+            textTransform: 'capitalize',
+            fontWeight: 'bold'
           }}
         >
-          John Doe
+          {displayName}
         </Typography>
       </Box>
 

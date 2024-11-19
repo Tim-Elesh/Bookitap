@@ -1,6 +1,8 @@
 // src/config/firebaseConfig.ts
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 // Конфигурация Firebase
 const firebaseConfig = {
@@ -17,6 +19,11 @@ const firebaseConfig = {
 // Инициализация Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
+  prompt: 'select_account' // Forces account selection even if one account is available
+});
 
-export { auth, googleProvider };
+export { auth, db, storage, googleProvider };

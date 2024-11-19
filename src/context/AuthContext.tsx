@@ -16,6 +16,7 @@ interface AuthContextType {
   loginWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
   registerWithEmail: (email: string, password: string) => Promise<void>;
+  getUserEmail: () => string | null;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -42,9 +43,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const loginWithGoogle = async () => {
+    try {
       const result = await signInWithPopup(auth, googleProvider);
       setCurrentUser(result.user);
       setIsAuthenticated(true);
+      
+      if (result.user.email) {
+        localStorage.setItem('userEmail', result.user.email);
+      }
+      
+      return result;
+    } catch (error) {
+      console.error('Google sign-in error:', error);
+      throw error;
+    }
   };
 
   const logout = async () => {
@@ -65,6 +77,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const getUserEmail = () => {
+    return currentUser?.email || null;
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -77,7 +93,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         loginWithEmail, 
         loginWithGoogle, 
         logout, 
-        registerWithEmail 
+        registerWithEmail,
+        getUserEmail 
       }}
     >
       {children}

@@ -1,45 +1,29 @@
 import { useState } from 'react';
-import { Box, Typography } from '@mui/joy';
+import { Box } from '@mui/joy';
 import Search from './Search';
-import BookCard from './BookCard';
-import books from '../data/books'; // Импортируем данные книг
 
-const BookSearch = () => {
-    const [searchQuery, setSearchQuery] = useState('');
+interface BookSearchProps {
+  onSearch: (query: string) => void;
+}
 
-    // Фильтрация книг по названию и автору
-    const filteredBooks = books.filter((book) =>
-        book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        book.author.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+const BookSearch = ({ onSearch }: BookSearchProps) => {
+  const [searchQuery, setSearchQuery] = useState('');
 
-    return (
-        <Box
-            sx={{
-                width: '100%',
-                padding: '16px'
-            }}
-        >
-            {/* Компонент поиска */}
-            <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+    onSearch(query);
+  };
 
-            {/* Отображение отфильтрованных карточек книг */}
-            {filteredBooks.length > 0 ? (
-                filteredBooks.map((book) => (
-                    <BookCard key={book.id} book={book} onOpen={() => console.log(`Opened ${book.title}`)} />
-                ))
-            ) : (
-                <Typography
-                    level='h3'
-                    sx={{
-                        textAlign: 'center'
-                    }}
-                >
-                    No books found
-                </Typography>
-            )}
-        </Box>
-    );
+  return (
+    <Box
+      sx={{
+        width: '100%',
+        padding: '16px'
+      }}
+    >
+      <Search searchQuery={searchQuery} setSearchQuery={handleSearchChange} />
+    </Box>
+  );
 };
 
 export default BookSearch;
