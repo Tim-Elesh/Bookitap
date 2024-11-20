@@ -9,15 +9,19 @@ const firebaseConfig = {
   apiKey: "AIzaSyC0LuOlefAlv3_oronYbC-bYSA_9qzb8as",
   authDomain: "bookitap-49ea7.firebaseapp.com",
   projectId: "bookitap-49ea7",
-  storageBucket: "bookitap-49ea7.firebasestorage.app",
+  storageBucket: "bookitap-49ea7.appspot.com",
   messagingSenderId: "935643188782",
   appId: "1:935643188782:web:176c4f26efc13a4c46d9bf",
   measurementId: "G-C5HD2EY4F4"
 };
 
+let app;
+try {
+  app = initializeApp(firebaseConfig);
+} catch (error) {
+  console.error("Firebase initialization error:", error);
+}
 
-// Инициализация Firebase
-const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);

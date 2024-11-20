@@ -2,7 +2,7 @@ import { Box, CircularProgress, Alert } from "@mui/joy";
 import { useState, useEffect } from "react";
 import BookCard from "./BookCard";
 import BookModal from "../Modals/BookModal";
-import { BookData, fetchBooks } from "../services/bookService";
+import { BookData, fetchBooks, initializeDatabase } from "../services/bookService";
 import BookSearch from "./BookSearch";
 import Header from "./Header";
 import { useAuth } from "../context/AuthContext";
@@ -17,22 +17,47 @@ const DashBoard = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
+        const initDB = async () => {
+          try {
+            await initializeDatabase();
+          } catch (error) {
+            console.error('Failed to initialize database:', error);
+          }
+        };
+      
+        // Раскомментируйте следующую строку только для первой инициализации
+        // initDB();
+      }, []);
+
+    useEffect(() => {
+        let isMounted = true;
+
         const loadBooks = async () => {
             try {
                 setLoading(true);
+                setError(null);
                 const fetchedBooks = await fetchBooks();
-                setBooks(fetchedBooks);
+                
+                if (isMounted) {
+                    setBooks(fetchedBooks);
+                }
             } catch (err) {
-                const errorMessage = err instanceof Error 
-                    ? err.message 
-                    : 'Ошибка при загрузке книг';
-                setError(errorMessage);
+                if (isMounted) {
+                    console.error('Loading error:', err);
+                    setError(err instanceof Error ? err.message : 'Неизвестная ошибка');
+                }
             } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         };
 
         loadBooks();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const filteredBooks = books.filter((book) =>
