@@ -11,11 +11,19 @@ const AddBookForm = () => {
     setLoading(true);
     setError(null);
 
-    const formData = new FormData(event.currentTarget);
-    const coverImageFile = formData.get('coverImage') as File;
-    const pdfFile = formData.get('pdf') as File;
-
     try {
+      const formData = new FormData(event.currentTarget);
+      const coverImageFile = formData.get('coverImage') as File;
+      const pdfFile = formData.get('pdf') as File;
+
+      if (!coverImageFile.type.startsWith('image/')) {
+        throw new Error('Cover file must be an image');
+      }
+
+      if (pdfFile.type !== 'application/pdf') {
+        throw new Error('File must be a PDF');
+      }
+
       await addBook(
         {
           title: formData.get('title') as string,
@@ -35,24 +43,108 @@ const AddBookForm = () => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit}>
-      <FormControl>
-        <FormLabel>Title</FormLabel>
-        <Input name="title" required />
+    <Box 
+      component="form" 
+      onSubmit={handleSubmit}
+      sx={{
+        width: '100%',
+        height: '100vh',
+      }}
+    >
+      <FormControl
+        sx={{
+          marginTop: '10px'
+        }}
+      >
+        <FormLabel
+          sx={{
+            fontSize: '20px',
+            fontWeight: '550',
+          }}
+        >
+          Title
+        </FormLabel>
+        <Input placeholder="Enter book title" name="title" required />
       </FormControl>
-      <FormControl>
-        <FormLabel>Author</FormLabel>
-        <Input name="author" required />
+      <FormControl
+        sx={{
+          marginTop: '10px'
+        }}
+      >
+        <FormLabel
+          sx={{
+            fontSize: '20px',
+            fontWeight: '550',
+          }}
+        >
+          Author
+        </FormLabel>
+        <Input placeholder="Enter author name" name="author" required />
       </FormControl>
-      <FormControl>
-        <FormLabel>Cover Image</FormLabel>
-        <Input component="input" type="file" name="coverImage" required accept="image/*" />
+      <FormControl
+        sx={{
+          marginTop: '10px'
+        }}
+      >
+        <FormLabel
+          sx={{
+            fontSize: '20px',
+            fontWeight: '550',
+          }}
+        >
+          Cover Image
+        </FormLabel>
+        <Input
+          sx={{
+            padding: '4px',
+          }}
+          slotProps={{
+            input: {
+              type: 'file',
+              accept: 'image/*'
+            }
+          }}
+          name="coverImage" 
+          required 
+        />
       </FormControl>
-      <FormControl>
-        <FormLabel>PDF File</FormLabel>
-        <Input component="input" type="file" name="pdf" required accept="application/pdf" />
+      <FormControl
+        sx={{
+          marginTop: '10px'
+        }}
+      >
+        <FormLabel
+          sx={{
+            fontSize: '20px',
+            fontWeight: '550',
+          }}
+        >
+          PDF File
+        </FormLabel>
+        <Input 
+          sx={{
+            padding: '4px',
+          }}
+          slotProps={{
+            input: {
+              type: 'file',
+              accept: 'application/pdf'
+            }
+          }}
+          name="pdf" 
+          required 
+        />
       </FormControl>
-      <Button type="submit" loading={loading}>Add Book</Button>
+      <Button
+        sx={{
+          width: '100%',
+          my: '10px'
+        }} 
+        type="submit" 
+        loading={loading}
+      >
+        Add Book
+      </Button>
       {error && <Alert color="danger">{error}</Alert>}
     </Box>
   );

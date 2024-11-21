@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound';
 import HomePage from './pages/HomePage';
 import { Box, CssBaseline } from '@mui/joy';
 import SignUpPage from './pages/SignUpPage';
+import AdminPage from './pages/AdminPage';
 import ForgotPassword from './pages/ForgotPassword';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
@@ -29,6 +30,12 @@ function App() {
               }
             />
 
+            <Route 
+              path="/admin" 
+              element={
+                <AdminPage />
+              } 
+            />
 
             <Route path="*" element={<NotFound />} />
             <Route path='/sign-up' element={<SignUpPage />} />

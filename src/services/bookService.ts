@@ -11,6 +11,26 @@ export interface BookData {
   pdf: string;
 }
 
+const sanitizeFileName = (fileName: string): string => {
+  // Транслитерация кириллицы и замена специальных символов
+  const translitMap: { [key: string]: string } = {
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
+    'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
+    'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+    'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '',
+    'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya',
+    'қ': 'k', 'ң': 'n', 'ү': 'u', 'ұ': 'u', 'ә': 'a', 'і': 'i', 'ғ': 'g',
+    'ө': 'o', 'һ': 'h'
+  };
+
+  return fileName
+    .toLowerCase()
+    .split('')
+    .map(char => translitMap[char] || char)
+    .join('')
+    .replace(/[^a-z0-9.]/g, '_');
+};
+
 export const fetchBooks = async () => {
   try {
     // Проверяем инициализацию Firebase
@@ -47,18 +67,33 @@ export const fetchBooks = async () => {
 };
 
 export const uploadBookFile = async (file: File, path: string) => {
-  const storageRef = ref(storage, path);
-  await uploadBytes(storageRef, file);
-  return await getDownloadURL(storageRef);
+  try {
+    const fileExtension = file.name.split('.').pop();
+    const timestamp = Date.now();
+    const sanitizedName = sanitizeFileName(file.name.split('.')[0]);
+    const safePath = `${path}/${sanitizedName}_${timestamp}.${fileExtension}`;
+
+    const metadata = {
+      contentType: file.type,
+      customMetadata: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    };
+
+    const storageRef = ref(storage, safePath);
+    await uploadBytes(storageRef, file, metadata);
+    return await getDownloadURL(storageRef);
+  } catch (error) {
+    console.error('Error uploading file:', error);
+    throw new Error(`Failed to upload file: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
 };
 
 export const addBook = async (bookData: BookData, coverImageFile: File, pdfFile: File) => {
   try {
-    // Upload files
-    const coverImageUrl = await uploadBookFile(coverImageFile, `covers/${coverImageFile.name}`);
-    const pdfUrl = await uploadBookFile(pdfFile, `pdfs/${pdfFile.name}`);
+    const coverImageUrl = await uploadBookFile(coverImageFile, 'covers');
+    const pdfUrl = await uploadBookFile(pdfFile, 'pdfs');
 
-    // Add to Firestore
     const bookRef = await addDoc(collection(db, 'books'), {
       ...bookData,
       coverImage: coverImageUrl,
