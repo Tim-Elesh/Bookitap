@@ -10,6 +10,7 @@ import AdminPage from './pages/AdminPage';
 import ForgotPassword from './pages/ForgotPassword';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
+import FeedBackPage from './pages/FeedbackPage';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
               } 
             />
 
+            <Route path="feedback" element={<FeedBackPage/>} />
             <Route path="*" element={<NotFound />} />
             <Route path='/sign-up' element={<SignUpPage />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />

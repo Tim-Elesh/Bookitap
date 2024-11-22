@@ -77,7 +77,15 @@ const DashBoard = () => {
 
     if (loading) {
         return (
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <Box 
+                sx={{ 
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    alignItems: 'center', 
+                    height: '100vh',
+                    width: '100%' 
+                }}
+            >
                 <CircularProgress />
             </Box>
         );
@@ -96,31 +104,40 @@ const DashBoard = () => {
     return (
         <Box
             sx={{
+                display: 'flex',
                 width: '100%',
                 height: '100vh',
-                display: 'flex',
-                flexDirection: 'column',
-            }}>
-            <Header />
-            <BookSearch onSearch={setSearchQuery} />
+            }}
+        >
             <Box
                 sx={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                    gap: '20px',
-                    padding: '20px',
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
                     overflow: 'auto'
                 }}
             >
-                {filteredBooks.map((book: BookData) => (
-                    <BookCard
-                        key={book.id}
-                        book={book}
-                        onOpen={() => handleOpen(book.title)}
-                    />
-                ))}
+                <Header />
+                <BookSearch onSearch={setSearchQuery} />
+                <Box
+                    sx={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                        gap: '20px',
+                        padding: '20px',
+                        overflow: 'auto'
+                    }}
+                >
+                    {filteredBooks.map((book: BookData) => (
+                        <BookCard
+                            key={book.id}
+                            book={book}
+                            onOpen={() => handleOpen(book.title)}
+                        />
+                    ))}
+                </Box>
+                <BookModal open={open} onClose={handleClose} bookTitle={selectedBook || ""} />
             </Box>
-            <BookModal open={open} onClose={handleClose} bookTitle={selectedBook || ""} />
         </Box>
     );
 };

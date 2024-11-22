@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import BookIcon from '@mui/icons-material/AutoStories';
+import EmailIcon from '@mui/icons-material/Email';
 import LogOutModal from '../Modals/LogOutModal';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
@@ -50,11 +51,26 @@ function Sidebar() {
       {/* Профиль пользователя */}
       <Box
         sx={{
+          p: '2',
+        }}
+      >
+        <Typography
+          sx={{
+            color: 'white',
+            fontWeight: '550',
+            fontSize: '22px',
+          }}
+        >
+          Bookitap
+        </Typography>
+      </Box>
+
+      <Box
+        sx={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: 2,
-          p: 2
         }}
       >
         <Avatar 
@@ -82,12 +98,13 @@ function Sidebar() {
       >
         <Button
           component={Link}
-          to="/dashboard" variant="plain"
+          to="/dashboard" 
+          variant="plain"
           fullWidth
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            color: '#fff'
+            color: '#fff',
           }}
         >
           <BookIcon />
@@ -95,16 +112,31 @@ function Sidebar() {
         </Button>
         <Button
           component={Link}
-          to="/settings" variant="plain"
+          to="/settings" 
+          variant="plain"
           fullWidth
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            color: '#fff'
+            color: '#fff',
           }}
         >
           <SettingsIcon />
           Settings
+        </Button>
+        <Button
+          component={Link}
+          to="/feedback" 
+          variant="plain"
+          fullWidth
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            color: '#fff',
+          }}
+        >
+          <EmailIcon />
+          Feedback
         </Button>
       </Box>
 

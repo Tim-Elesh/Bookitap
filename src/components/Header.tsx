@@ -1,19 +1,16 @@
-import Dropdown from '@mui/joy/Dropdown';
-import IconButton from '@mui/joy/IconButton';
-import Menu from '@mui/joy/Menu';
-import MenuButton from '@mui/joy/MenuButton';
-import MenuItem from '@mui/joy/MenuItem';
-import { Box, Typography } from '@mui/joy';
-import LogoutIcon from '@mui/icons-material/Logout';
-import SettingsIcon from '@mui/icons-material/Settings';
-import BookIcon from '@mui/icons-material/AutoStories';
-import LogOutModal from '../Modals/LogOutModal';
+import { Box, Typography, IconButton, Menu, MenuItem, Dropdown, MenuButton } from '@mui/joy';
 import MenuIcon from '@mui/icons-material/Menu';
+import BookIcon from '@mui/icons-material/AutoStories';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
+import EmailIcon from '@mui/icons-material/Email';
 import { useState } from 'react';
+import LogOutModal from '../Modals/LogOutModal';
+import { useNavigate } from 'react-router-dom';
 
-export default function Header() {
-
+function Header() {
     const [isModalOpen, setModalOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleLogoutClick = () => {
         setModalOpen(true);
@@ -23,6 +20,9 @@ export default function Header() {
         setModalOpen(false);
     };
 
+    const handleNavigation = (path: string) => {
+        navigate(path);
+    };
 
     return (
         <Box
@@ -43,6 +43,8 @@ export default function Header() {
         >
             <Typography
                 level='h3'
+                onClick={() => handleNavigation('/dashboard')}
+                sx={{ cursor: 'pointer' }}
             >
                 Bookitap
             </Typography>
@@ -55,16 +57,18 @@ export default function Header() {
                 </MenuButton>
                 <Menu>
                     <MenuItem
+                        onClick={() => handleNavigation('/dashboard')}
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
                         }}
                     >
-                        My account
+                        Dashboard
                         <BookIcon />
                     </MenuItem>
                     <MenuItem
+                        onClick={() => handleNavigation('/settings')}
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
@@ -75,10 +79,22 @@ export default function Header() {
                         <SettingsIcon />
                     </MenuItem>
                     <MenuItem
+                        onClick={() => handleNavigation('/feedback')}
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
+                        }}
+                    >
+                        Feedback
+                        <EmailIcon />
+                    </MenuItem>
+                    <MenuItem
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            color: 'danger.plainColor',
                         }}
                         onClick={handleLogoutClick}
                     >
@@ -91,3 +107,5 @@ export default function Header() {
         </Box>
     );
 }
+
+export default Header;
