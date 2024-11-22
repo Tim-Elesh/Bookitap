@@ -19,12 +19,13 @@ const AdminPage = () => {
     <Box sx={{ 
       display: 'flex',
       width: '100%',
-      height: '100vh'
+      height: '100vh',
+      overflow: 'hidden'
     }}>
       <Sidebar />
       <Box sx={{ 
         padding: '20px',
-        maxWidth: '800px',
+        maxWidth: '100%',
         margin: '0 auto',
         flex: 1
       }}>
@@ -35,7 +36,7 @@ const AdminPage = () => {
           marginBottom: '20px'
         }}>
           <Typography level="h1">Admin Panel</Typography>
-          <Button onClick={() => navigate('/')}>Back to Home</Button>
+          <Button onClick={() => navigate('/dashboard')}>Back to Home</Button>
         </Box>
         
         <Box sx={{ 

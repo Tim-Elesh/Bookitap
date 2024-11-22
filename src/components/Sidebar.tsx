@@ -59,6 +59,10 @@ function Sidebar() {
             color: 'white',
             fontWeight: '550',
             fontSize: '22px',
+            transition: 'color 300ms ease', // Плавный переход для цвета
+            '&:hover': {
+              color: '#000', // Цвет при наведении
+            },
           }}
         >
           Bookitap
@@ -71,18 +75,29 @@ function Sidebar() {
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: 2,
+          marginTop: '10px',
         }}
       >
         <Avatar 
           src="/static/images/avatar/1.jpg" 
           alt={displayName}
           size='sm'
+          sx={{
+            transition: 'outline 600ms ease', // Плавный переход для границы
+            '&:hover': {
+              outline: '1px solid #000', // Цвет и ширина границы при наведении
+            },
+          }}
         />
         <Typography
           sx={{
             color: '#fff',
             textTransform: 'capitalize',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            transition: 'color 300ms ease', // Плавный переход для цвета
+            '&:hover': {
+              color: '#000', // Цвет при наведении
+            },
           }}
         >
           {displayName}
@@ -94,6 +109,10 @@ function Sidebar() {
         sx={{
           flexGrow: 1,
           width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          padding: '0',
         }}
       >
         <Button
@@ -103,12 +122,22 @@ function Sidebar() {
           fullWidth
           sx={{
             display: 'flex',
+            alignItems: 'center',
             justifyContent: 'space-between',
+            gap: 1,
             color: '#fff',
+            padding: '10px 2px',
+            width: '100%',
+            textAlign: 'left',
+            transition: 'background-color 300ms ease, color 300ms ease', // Плавный переход для фона и цвета
+            '&:hover': {
+              backgroundColor: '#fff', // Цвет фона при наведении
+              color: '#000', // Цвет текста при наведении
+            },
           }}
         >
           <BookIcon />
-          Dashboard
+          Книги
         </Button>
         <Button
           component={Link}
@@ -117,12 +146,22 @@ function Sidebar() {
           fullWidth
           sx={{
             display: 'flex',
+            alignItems: 'center',
             justifyContent: 'space-between',
+            gap: 1,
             color: '#fff',
+            padding: '10px 2px',
+            width: '100%',
+            textAlign: 'left',
+            transition: 'background-color 300ms ease, color 300ms ease', // Плавный переход для фона и цвета
+            '&:hover': {
+              backgroundColor: '#fff', // Цвет фона при наведении
+              color: '#000', // Цвет текста при наведении
+            },
           }}
         >
           <SettingsIcon />
-          Settings
+          Настройки
         </Button>
         <Button
           component={Link}
@@ -131,12 +170,22 @@ function Sidebar() {
           fullWidth
           sx={{
             display: 'flex',
+            alignItems: 'center',
             justifyContent: 'space-between',
+            gap: 1,
             color: '#fff',
+            padding: '10px 2px',
+            width: '100%',
+            textAlign: 'left',
+            transition: 'background-color 300ms ease, color 300ms ease', // Плавный переход для фона и цвета
+            '&:hover': {
+              backgroundColor: '#fff', // Цвет фона при наведении
+              color: '#000', // Цвет текста при наведении
+            },
           }}
         >
           <EmailIcon />
-          Feedback
+          Обратная связь
         </Button>
       </Box>
 
@@ -144,7 +193,7 @@ function Sidebar() {
       <Box>
         <Button onClick={handleLogoutClick} variant="solid" color="danger" fullWidth>
           <LogoutIcon />
-          Logout
+           Выйти
         </Button>
         <LogOutModal open={isModalOpen} onClose={handleCloseModal} />
       </Box>
