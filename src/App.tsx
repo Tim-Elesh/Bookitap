@@ -11,6 +11,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
 import FeedBackPage from './pages/FeedbackPage';
+import AdminRoute from './components/AdminRoute';
 
 function App() {
   return (
@@ -32,9 +33,11 @@ function App() {
             />
 
             <Route 
-              path="/admin" 
+              path="admin" 
               element={
-                <AdminPage />
+                <AdminRoute>
+                  <AdminPage />
+                </AdminRoute>
               } 
             />
 

@@ -8,6 +8,7 @@ import {
   User
 } from 'firebase/auth';
 import { auth, googleProvider } from '../firebase/firebaseConfig';
+import {  ADMIN_CREDENTIALS , ADMIN_EMAILS } from '../data/admin';
 
 interface AuthContextType {
   currentUser: User | null;
@@ -17,6 +18,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   registerWithEmail: (email: string, password: string) => Promise<void>;
   getUserEmail: () => string | null;
+  isAdmin: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -81,6 +83,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return currentUser?.email || null;
   };
 
+  const isAdmin = currentUser?.email === ADMIN_CREDENTIALS.email;
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -94,7 +98,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         loginWithGoogle, 
         logout, 
         registerWithEmail,
-        getUserEmail 
+        getUserEmail,
+        isAdmin,
       }}
     >
       {children}
