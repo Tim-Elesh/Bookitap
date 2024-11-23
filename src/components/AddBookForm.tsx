@@ -62,9 +62,9 @@ const AddBookForm = () => {
             fontWeight: '550',
           }}
         >
-          Title
+          Название книги
         </FormLabel>
-        <Input placeholder="Enter book title" name="title" required />
+        <Input placeholder="Введите название книги" name="title" required />
       </FormControl>
       <FormControl
         sx={{
@@ -77,9 +77,9 @@ const AddBookForm = () => {
             fontWeight: '550',
           }}
         >
-          Author
+          Автор
         </FormLabel>
-        <Input placeholder="Enter author name" name="author" required />
+        <Input placeholder="Введите имя автора книги" name="author" required />
       </FormControl>
       <FormControl
         sx={{
@@ -92,7 +92,7 @@ const AddBookForm = () => {
             fontWeight: '550',
           }}
         >
-          Cover Image
+          Обложка книги
         </FormLabel>
         <Input
           sx={{
@@ -119,7 +119,7 @@ const AddBookForm = () => {
             fontWeight: '550',
           }}
         >
-          PDF File
+          PDF файл
         </FormLabel>
         <Input 
           sx={{
@@ -143,7 +143,7 @@ const AddBookForm = () => {
         type="submit" 
         loading={loading}
       >
-        Add Book
+        Добавить книгу
       </Button>
       {error && <Alert color="danger">{error}</Alert>}
     </Box>

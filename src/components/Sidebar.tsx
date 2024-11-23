@@ -6,6 +6,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import BookIcon from '@mui/icons-material/AutoStories';
 import EmailIcon from '@mui/icons-material/Email';
 import LogOutModal from '../Modals/LogOutModal';
+import ProfileIcon from '@mui/icons-material/Person'; // Импортируйте иконку профиля
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
@@ -139,6 +140,32 @@ function Sidebar() {
           <BookIcon />
           Книги
         </Button>
+
+        <Button
+          component={Link}
+          to="/profile" 
+          variant="plain"
+          fullWidth
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 1,
+            color: '#fff',
+            padding: '10px 2px',
+            width: '100%',
+            textAlign: 'left',
+            transition: 'background-color 300ms ease, color 300ms ease',
+            '&:hover': {
+              backgroundColor: '#fff',
+             color: '#000',
+            },
+          }}
+        >
+          <ProfileIcon />
+          Профиль
+        </Button>
+
         <Button
           component={Link}
           to="/settings" 

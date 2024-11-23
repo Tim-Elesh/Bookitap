@@ -39,6 +39,7 @@ function Header() {
                 alignItems: 'center',
                 paddingX: '16px',
                 paddingTop: '8px',
+                width: '100%',
             }}
         >
             <Typography
@@ -48,14 +49,14 @@ function Header() {
             >
                 Bookitap
             </Typography>
-            <Dropdown>
+            <Dropdown sx={{ width: '100%' }}>
                 <MenuButton
                     slots={{ root: IconButton }}
                     slotProps={{ root: { variant: 'outlined', color: 'neutral' } }}
                 >
                     <MenuIcon />
                 </MenuButton>
-                <Menu>
+                <Menu sx={{ width: '100%' }}>
                     <MenuItem
                         onClick={() => handleNavigation('/dashboard')}
                         sx={{
@@ -64,7 +65,7 @@ function Header() {
                             justifyContent: 'space-between',
                         }}
                     >
-                        Dashboard
+                        Книги
                         <BookIcon />
                     </MenuItem>
                     <MenuItem
@@ -75,7 +76,7 @@ function Header() {
                             justifyContent: 'space-between',
                         }}
                     >
-                        Settings
+                        Настройки
                         <SettingsIcon />
                     </MenuItem>
                     <MenuItem
@@ -86,7 +87,7 @@ function Header() {
                             justifyContent: 'space-between',
                         }}
                     >
-                        Feedback
+                        Обратная связь
                         <EmailIcon />
                     </MenuItem>
                     <MenuItem
@@ -98,7 +99,7 @@ function Header() {
                         }}
                         onClick={handleLogoutClick}
                     >
-                        Logout
+                        Выйти
                         <LogoutIcon />
                     </MenuItem>
                 </Menu>

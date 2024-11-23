@@ -12,6 +12,9 @@ import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
 import FeedBackPage from './pages/FeedbackPage';
 import AdminRoute from './components/AdminRoute';
+import ProfilePage from './pages/ProfilePage'; // Импортируйте страницу профиля
+import Settings from './pages/Settings';
+
 
 function App() {
   return (
@@ -41,6 +44,8 @@ function App() {
               } 
             />
 
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/profile" element={<ProfilePage />} /> 
             <Route path="feedback" element={<FeedBackPage/>} />
             <Route path="*" element={<NotFound />} />
             <Route path='/sign-up' element={<SignUpPage />} />

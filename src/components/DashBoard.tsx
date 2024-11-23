@@ -2,10 +2,12 @@ import { Box, CircularProgress, Alert } from "@mui/joy";
 import { useState, useEffect } from "react";
 import BookCard from "./BookCard";
 import BookModal from "../Modals/BookModal";
-import { BookData, fetchBooks, initializeDatabase } from "../services/bookService";
+import { BookData, initializeDatabase } from "../services/bookService";
 import BookSearch from "./BookSearch";
 import Header from "./Header";
 import { useAuth } from "../context/AuthContext";
+import booksData from "../data/books";
+import Loading from "./Loading";
 
 const DashBoard = () => {
     const { isAuthenticated, currentUser } = useAuth();
@@ -30,34 +32,9 @@ const DashBoard = () => {
       }, []);
 
     useEffect(() => {
-        let isMounted = true;
-
-        const loadBooks = async () => {
-            try {
-                setLoading(true);
-                setError(null);
-                const fetchedBooks = await fetchBooks();
-                
-                if (isMounted) {
-                    setBooks(fetchedBooks);
-                }
-            } catch (err) {
-                if (isMounted) {
-                    console.error('Loading error:', err);
-                    setError(err instanceof Error ? err.message : 'Неизвестная ошибка');
-                }
-            } finally {
-                if (isMounted) {
-                    setLoading(false);
-                }
-            }
-        };
-
-        loadBooks();
-
-        return () => {
-            isMounted = false;
-        };
+        console.log(booksData);
+        setBooks(booksData);
+        setLoading(false);
     }, []);
 
     const filteredBooks = books.filter((book) =>
@@ -77,17 +54,7 @@ const DashBoard = () => {
 
     if (loading) {
         return (
-            <Box 
-                sx={{ 
-                    display: 'flex', 
-                    justifyContent: 'center', 
-                    alignItems: 'center', 
-                    height: '100vh',
-                    width: '100%' 
-                }}
-            >
-                <CircularProgress />
-            </Box>
+            <Loading />
         );
     }
 
@@ -114,18 +81,29 @@ const DashBoard = () => {
                     flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
-                    overflow: 'auto'
+                    overflow: 'auto',
                 }}
             >
                 <Header />
                 <BookSearch onSearch={setSearchQuery} />
                 <Box
                     sx={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                        display:{
+                         xs : 'flex',
+                         sm: 'grid',
+                         md : 'grid',
+                        },
+                        gridTemplateColumns: {
+                            xs: '1fr', // 1 колонка для маленьких экранов (480px и ниже)
+                            sm: 'repeat(2, 1fr)', // 2 колонки для экранов от 481px
+                            md: 'repeat(auto-fill, minmax(300px, 1fr))', // Автоматическое заполнение для больших экранов
+                        },
+                        flexDirection: 'column',
                         gap: '20px',
                         padding: '20px',
-                        overflow: 'auto'
+                        justifyContent: 'center', // Центрирование карточек
+                        alignItems: 'center',
+                        overflow: 'auto',
                     }}
                 >
                     {filteredBooks.map((book: BookData) => (

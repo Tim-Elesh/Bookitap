@@ -35,8 +35,8 @@ const AdminPage = () => {
           alignItems: 'center',
           marginBottom: '20px'
         }}>
-          <Typography level="h1">Admin Panel</Typography>
-          <Button onClick={() => navigate('/dashboard')}>Back to Home</Button>
+          <Typography level="h1">Панель Админа</Typography>
+          <Button onClick={() => navigate('/dashboard')}>На главную</Button>
         </Box>
         
         <Box sx={{ 
@@ -45,7 +45,7 @@ const AdminPage = () => {
           borderRadius: '8px',
           boxShadow: 'sm'
         }}>
-          <Typography level="h2" sx={{ marginBottom: '20px' }}>Add New Book</Typography>
+          <Typography level="h2" sx={{ marginBottom: '20px' }}>Добавить новую книгу</Typography>
           <AddBookForm />
         </Box>
       </Box>

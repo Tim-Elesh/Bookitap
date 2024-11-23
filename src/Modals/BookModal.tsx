@@ -1,45 +1,96 @@
 import React from 'react';
-import { Modal, ModalDialog, Button, Typography } from '@mui/joy';
+import { Modal, ModalDialog, Button, Typography, Box } from '@mui/joy';
 import CloseIcon from '@mui/icons-material/Close';
 
 interface BookModalProps {
     open: boolean;
     onClose: () => void;
+    bookTitle: string;
+    bookAuthor: string;
+    pdfUrl: string;
+    coverImage: string;
 }
 
-const BookModal: React.FC<BookModalProps> = ({ open, onClose }) => {
+const BookModal: React.FC<BookModalProps> = ({ open, onClose, bookTitle, bookAuthor, pdfUrl, coverImage }) => {
     return (
         <Modal open={open} onClose={onClose}>
             <ModalDialog
                 aria-labelledby="modal-title"
                 aria-describedby="modal-description"
+                sx={{ display: 'flex', flexDirection: 'row', width: { xs: '90%', sm: '600px' }, maxWidth: '90vw' }}
             >
-                <Typography id="modal-title" level="h4">
-                    Book Title
-                </Typography>
+                <Box
+                    sx={{
+                        width: '50%',
+                        height: '100%',
+                        overflow: 'hidden',
+                    }}
+                >
+                    <img
+                        src={coverImage}
+                        alt={`${bookTitle} cover`}
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                        }}
+                    />
+                </Box>
 
-                <img
-                    src=""
-                    alt=""
-                />
+                <Box
+                    sx={{
+                        width: '50%',
+                        padding: '20px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Typography id="modal-title" level="h4">
+                        {bookTitle}
+                    </Typography>
+                    <Typography level="h4" sx={{ marginBottom: '16px' }}>
+                        Автор: {bookAuthor}
+                    </Typography>
 
-                <Typography id="modal-description" level="h2">
-                    This is a simple modal window created with Joy UI.
-                </Typography>
+                    <Button
+                        component="a"
+                        href={pdfUrl}
+                        target="_blank"
+                        sx={{ marginBottom: '8px' }}
+                    >
+                        Открыть PDF
+                    </Button>
+
+                    <Button
+                        component="a"
+                        href={pdfUrl}
+                        download
+                        sx={{ marginBottom: '8px' }}
+                    >
+                        Скачать PDF
+                    </Button>
+                </Box>
 
                 <Button
-                sx={{
-                    display: 'flex' , 
-                    justifyContent: 'space-between' ,
-                    alignItems: 'center'
-                }} 
-                onClick={onClose}>
-                    Close
+                    onClick={onClose}
+                    sx={{
+                        position: 'absolute',
+                        top: 8,
+                        right: 8,
+                        minWidth: 0,
+                        padding: '6px',
+                        color: 'neutral',
+                        border: 'none',
+                        backgroundColor: 'grey',
+                    }}
+                    
+                >
                     <CloseIcon />
                 </Button>
             </ModalDialog>
         </Modal>
-    )
-}
+    );
+};
 
 export default BookModal;

@@ -18,7 +18,8 @@ const FeedBackPage = () => {
                     flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
-                    overflow: 'auto'
+                    overflow: 'auto',
+                    paddingTop: '10%'
                 }}
             >
                 <Header />
