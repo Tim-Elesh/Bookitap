@@ -8,21 +8,27 @@ const FeedBackPage = () => {
         <Box
             sx={{
                 display: 'flex',
+                flexDirection: {
+                    xs: 'column',
+                    sm: 'column',
+                    md: 'row',
+                }, 
                 width: '100%',
                 height: '100vh',
+                justifyContent: 'center',
+                alignItems: 'center',
             }}
         >   
             <Sidebar />
+            <Header />
             <Box
                 sx={{
                     flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
                     overflow: 'auto',
-                    paddingTop: '10%'
                 }}
             >
-                <Header />
                 <FeedbackForm />
             </Box>
         </Box>
