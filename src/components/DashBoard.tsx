@@ -20,16 +20,16 @@ const DashBoard = () => {
 
     useEffect(() => {
         const initDB = async () => {
-          try {
-            await initializeDatabase();
-          } catch (error) {
-            console.error('Failed to initialize database:', error);
-          }
+            try {
+                await initializeDatabase();
+            } catch (error) {
+                console.error('Failed to initialize database:', error);
+            }
         };
-      
+
         // Раскомментируйте следующую строку только для первой инициализации
         // initDB();
-      }, []);
+    }, []);
 
     useEffect(() => {
         console.log(booksData);
@@ -88,10 +88,10 @@ const DashBoard = () => {
                 <BookSearch onSearch={setSearchQuery} />
                 <Box
                     sx={{
-                        display:{
-                         xs : 'flex',
-                         sm: 'grid',
-                         md : 'grid',
+                        display: {
+                            xs: 'flex',
+                            sm: 'grid',
+                            md: 'grid',
                         },
                         gridTemplateColumns: {
                             xs: '1fr', // 1 колонка для маленьких экранов (480px и ниже)

@@ -9,7 +9,8 @@ const Loading = () =>{
                 justifyContent: 'center', 
                 alignItems: 'center', 
                 height: '100vh',
-                width: '100%' 
+                width: '100%' ,
+                backgroundColor: 'white',
             }}
         >
         <CircularProgress />

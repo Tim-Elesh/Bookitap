@@ -69,7 +69,7 @@ export default function SignUpPage() {
     event.preventDefault();
     setError(null);
     const formElements = event.currentTarget.elements;
-    
+
     try {
       await registerWithEmail(
         formElements.email.value,
@@ -215,14 +215,14 @@ export default function SignUpPage() {
                       Забыли пароль?
                     </Link>
                   </Box>
-                    <Button type="submit" fullWidth>
-                      Зарегистрироваться
-                    </Button>
+                  <Button type="submit" fullWidth>
+                    Зарегистрироваться
+                  </Button>
                 </Stack>
               </form>
               {error && (
-                <Alert 
-                  color="danger" 
+                <Alert
+                  color="danger"
                   variant="soft"
                   sx={{ mt: 2 }}
                 >
