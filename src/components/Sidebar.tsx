@@ -90,19 +90,21 @@ function Sidebar() {
             },
           }}
         />
-        <Typography
-          sx={{
-            color: '#fff',
-            textTransform: 'capitalize',
-            fontWeight: 'bold',
-            transition: 'color 300ms ease', // Плавный переход для цвета
-            '&:hover': {
-              color: '#000', // Цвет при наведении
-            },
-          }}
-        >
-          {displayName}
-        </Typography>
+        <Link to="/profile" style={{ textDecoration: 'none' }}>
+          <Typography
+            sx={{
+              color: '#fff',
+              textTransform: 'capitalize',
+              fontWeight: 'bold',
+              transition: 'color 300ms ease', // Плавный переход для цвета
+              '&:hover': {
+                color: '#000', // Цвет при наведении
+              },
+            }}
+          >
+            {displayName}
+          </Typography>
+        </Link>
       </Box>
 
       {/* Навигационные ссылки */}
