@@ -1,7 +1,7 @@
-import { Box, Typography, Button, Select, FormControl, FormLabel, Option } from "@mui/joy";
-import { useState } from "react";
+import { Box } from "@mui/joy";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import SettingsPoints from "../components/SettingsPoints";
 
 const Settings = () => {
     return (
@@ -9,48 +9,20 @@ const Settings = () => {
             sx={{
                 backgroundColor: '#f5f5f5',
                 display: 'flex',
-                heigth: '100vh'
+                height: '100vh'
             }}
         >
             <Sidebar />
             <Box
                 sx={{
-                    dispaly: 'flex',
+                    display: 'flex',
                     width: '100%',
                     height: '100%',
                     flexDirection: 'column',
                 }}
             >
                 <Header />
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '100%'
-                    }}
-                >
-                    <Typography level="h4" sx={{ marginBottom: 2 }}>Настройки</Typography>
-                    <Box>
-                        <FormControl
-                            fullWidth
-                            sx={{
-                                marginBottom: 2,
-                                display: 'flex',
-                            }}
-                        >
-                            <FormLabel>Тема</FormLabel>
-                            <Select>
-                                <Option value="light">Светлая</Option>
-                                <Option value="dark">Тёмная</Option>
-                            </Select>
-                        </FormControl>
-                    </Box>
-                    <Button variant="outlined" color="primary" onClick={() => alert("Настройки сохранены!")}>
-                        Сохранить
-                    </Button>
-                </Box>
+                <SettingsPoints />
             </Box>
         </Box>
     );
