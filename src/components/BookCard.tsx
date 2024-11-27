@@ -8,6 +8,7 @@ interface Book {
   author: string;
   coverImage: string;
   pdf: string;
+  epub: string;
 }
 
 interface BookCardProps {
@@ -65,7 +66,8 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
         onClose={handleCloseBookModal} 
         bookTitle={book.title} 
         bookAuthor={book.author} 
-        pdfUrl={book.pdf} 
+        pdfUrl={book.pdf}
+        epubUrl={book.epub} // Передаем URL для EPUB
         coverImage={book.coverImage} 
       />
     </>

@@ -16,6 +16,7 @@ import FeedBackPage from './pages/FeedbackPage';
 import AdminRoute from './components/AdminRoute';
 import ProfilePage from './pages/ProfilePage';
 import Settings from './pages/Settings';
+import BookPage from './pages/BookPage'; // Импортируйте новый компонент
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -45,6 +46,7 @@ function App() {
                         <Route path="/settings" element={<Settings />} />
                         <Route path="/profile" element={<ProfilePage />} />
                         <Route path="feedback" element={<FeedBackPage />} />
+                        <Route path="/books/:bookId" element={<BookPage />} />
                         <Route path="*" element={<NotFound />} />
                         <Route path='/sign-up' element={<SignUpPage />} />
                         <Route path='/forgot-password' element={<ForgotPassword />} />

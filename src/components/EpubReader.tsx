@@ -1,24 +1,20 @@
 import React, { useState } from 'react';
-import { Epub } from 'react-reader';
+import { ReactReader } from 'react-reader'
+
 
 interface EpubReaderProps {
     url: string; // URL или путь к файлу EPUB
 }
 
 const EpubReader: React.FC<EpubReaderProps> = ({ url }) => {
-    const [location, setLocation] = useState<string | null>(null);
-
-    const handleLocationChange = (newLocation: string) => {
-        setLocation(newLocation);
-    };
+    const [location, setLocation] = useState<string | number>(0);
 
     return (
-        <div style={{ height: '100vh', width: '100%' }}>
-            <Epub
+        <div style={{ height: '100vh' }}>
+            <ReactReader
                 url={url}
-                onLocationChange={handleLocationChange}
                 location={location}
-                // Вы можете добавить дополнительные параметры, если необходимо
+                locationChanged={(epubcfi: string) => setLocation(epubcfi)}
             />
         </div>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, ModalDialog, Button, Typography, Box } from '@mui/joy';
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from 'react-router-dom';
 
 interface BookModalProps {
     open: boolean;
@@ -8,10 +9,17 @@ interface BookModalProps {
     bookTitle: string;
     bookAuthor: string;
     pdfUrl: string;
+    epubUrl: string;
     coverImage: string;
 }
 
-const BookModal: React.FC<BookModalProps> = ({ open, onClose, bookTitle, bookAuthor, pdfUrl, coverImage }) => {
+const BookModal: React.FC<BookModalProps> = ({ open, onClose, bookTitle, bookAuthor, pdfUrl, epubUrl, coverImage }) => {
+    const navigate = useNavigate();
+
+    const handleReadClick = () => {
+        navigate(`/books/${book.id}`);
+    };
+
     return (
         <Modal open={open} onClose={onClose}>
             <ModalDialog
@@ -70,6 +78,13 @@ const BookModal: React.FC<BookModalProps> = ({ open, onClose, bookTitle, bookAut
                     >
                         Скачать PDF
                     </Button>
+
+                    <Button
+                        onClick={handleReadClick}
+                        sx={{ marginBottom: '8px' }}
+                    >
+                        Читать
+                    </Button>
                 </Box>
 
                 <Button
@@ -84,7 +99,6 @@ const BookModal: React.FC<BookModalProps> = ({ open, onClose, bookTitle, bookAut
                         border: 'none',
                         backgroundColor: 'grey',
                     }}
-                    
                 >
                     <CloseIcon />
                 </Button>
