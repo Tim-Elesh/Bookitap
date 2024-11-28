@@ -1,4 +1,6 @@
-import { Typography, Box , Button} from '@mui/joy';
+import Box from "@mui/joy/Box";
+import Button from "@mui/joy/Button";
+import  Typography  from "@mui/joy/Typography";
 import { Link } from 'react-router-dom';
 
 function NotFound() {
@@ -30,7 +32,7 @@ function NotFound() {
           margin: '10px',
         }}
       >
-        Back to books
+        Вернуться на главную 
       </Button>
     </Box>
   );

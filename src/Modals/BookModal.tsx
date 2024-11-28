@@ -11,13 +11,14 @@ interface BookModalProps {
     pdfUrl: string;
     epubUrl: string;
     coverImage: string;
+    bookId: number;
 }
 
-const BookModal: React.FC<BookModalProps> = ({ open, onClose, bookTitle, bookAuthor, pdfUrl, epubUrl, coverImage }) => {
+const BookModal: React.FC<BookModalProps> = ({ open, onClose, bookTitle, bookAuthor, pdfUrl, epubUrl, coverImage, bookId }) => {
     const navigate = useNavigate();
 
     const handleReadClick = () => {
-        navigate(`/books/${book.id}`);
+        navigate(`/books/${bookId}`);
     };
 
     return (
