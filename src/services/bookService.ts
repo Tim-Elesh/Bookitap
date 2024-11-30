@@ -1,7 +1,6 @@
 import { collection, getDocs, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage, auth } from '../firebase/firebaseConfig';
-import { onAuthStateChanged } from 'firebase/auth';
+import { db, storage} from '../firebase/firebaseConfig';
 
 export interface BookData {
   id?: string;
@@ -9,6 +8,7 @@ export interface BookData {
   author: string;
   coverImage: string;
   pdf: string;
+  epub: string;
 }
 
 const sanitizeFileName = (fileName: string): string => {

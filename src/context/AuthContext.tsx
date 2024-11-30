@@ -8,10 +8,11 @@ import {
   User
 } from 'firebase/auth';
 import { auth, googleProvider } from '../firebase/firebaseConfig';
-import {  ADMIN_CREDENTIALS , ADMIN_EMAILS } from '../data/admin';
+import {  ADMIN_CREDENTIALS ,} from '../data/admin';
 
 interface AuthContextType {
   currentUser: User | null;
+  loading: boolean;
   isAuthenticated: boolean;
   loginWithEmail: (email: string, password: string) => Promise<void>;
   loginWithGoogle: () => Promise<void>;

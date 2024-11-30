@@ -1,8 +1,8 @@
-import { Box, CircularProgress, Alert } from "@mui/joy";
+import { Box, Alert } from "@mui/joy";
 import { useState, useEffect } from "react";
 import BookCard from "./BookCard";
 import BookModal from "../Modals/BookModal";
-import { BookData, initializeDatabase } from "../services/bookService";
+import { BookData } from "../services/bookService";
 import BookSearch from "./BookSearch";
 import Header from "./Header";
 import { useAuth } from "../context/AuthContext";
@@ -18,18 +18,18 @@ const DashBoard = () => {
     const [error, setError] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
 
-    useEffect(() => {
-        const initDB = async () => {
-            try {
-                await initializeDatabase();
-            } catch (error) {
-                console.error('Failed to initialize database:', error);
-            }
-        };
+    //useEffect(() => {//
+  //      const initDB = async () => {
+           // try {
+    //            await initializeDatabase();
+    //        } catch (error) {
+     //           console.error('Failed to initialize database:', error);
+     //       }
+    //    };
 
         // Раскомментируйте следующую строку только для первой инициализации
         // initDB();
-    }, []);
+   // }, []);
 
     useEffect(() => {
         console.log(booksData);
@@ -114,7 +114,11 @@ const DashBoard = () => {
                         />
                     ))}
                 </Box>
-                <BookModal open={open} onClose={handleClose} bookTitle={selectedBook || ""} />
+                <BookModal 
+                    open={open} 
+                    onClose={handleClose} 
+                    bookTitle={selectedBook || ""} 
+                />
             </Box>
         </Box>
     );

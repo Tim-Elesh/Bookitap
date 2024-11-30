@@ -67,8 +67,9 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
         bookTitle={book.title} 
         bookAuthor={book.author} 
         pdfUrl={book.pdf}
-        epubUrl={book.epub} // Передаем URL для EPUB
+        epubUrl={book.epub} 
         coverImage={book.coverImage} 
+        bookId={book.id}
       />
     </>
   );

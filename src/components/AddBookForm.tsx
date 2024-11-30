@@ -29,7 +29,8 @@ const AddBookForm = () => {
           title: formData.get('title') as string,
           author: formData.get('author') as string,
           coverImage: '',
-          pdf: ''
+          pdf: '',
+          epub: '',
         },
         coverImageFile,
         pdfFile

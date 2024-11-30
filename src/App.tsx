@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Loading from './components/Loading'; // Импортируйте компонент прелоадера
 import './App.css';
 import SignIn from './pages/SignInPage';
