@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Typography } from '@mui/joy';
+import Typography from '@mui/joy/Typography';
+import Box from "@mui/joy/Box";
 import BookModal from '../Modals/BookModal';
 
 interface Book {
@@ -42,6 +43,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
           alignItems: 'center',
           borderRadius: '8px',
           marginBottom: '16px',
+          overflow: 'hidden',
         }}
       >
         <img 
@@ -49,7 +51,8 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
           alt={`${book.title} cover`} 
           style={{
             width: '100%',
-            height: '100%'
+            height: '100%',
+            objectFit: 'cover',
           }}
         />
         <Typography 
@@ -69,7 +72,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
         pdfUrl={book.pdf}
         epubUrl={book.epub} 
         coverImage={book.coverImage} 
-        bookId={book.id}
+        bookId={Number(book.id)}
       />
     </>
   );

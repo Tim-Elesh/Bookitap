@@ -3,7 +3,11 @@ import { useAuth } from '../context/AuthContext';
 import { useEffect, useState } from 'react';
 import Loading from './Loading';
 
-const ProfileForm = ({displayName} : string) =>{
+interface ProfileFormProps {
+    displayName: string;
+}
+
+const ProfileForm = ({ displayName }: ProfileFormProps) =>{
     const [loading, setLoading] = useState(true);
     const { currentUser } = useAuth();
 

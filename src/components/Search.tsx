@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Autocomplete } from '@mui/joy';
+import Box from "@mui/joy/Box";
+import Autocomplete from '@mui/joy/Autocomplete';
 import SearchIcon from '@mui/icons-material/Search';
 
 interface SearchProps {
@@ -10,16 +11,16 @@ interface SearchProps {
 const Search: React.FC<SearchProps> = ({ searchQuery, setSearchQuery }) => {
 
     const top10Books = [
-        { label: 'Book1' },
-        { label: 'Book2' },
-        { label: 'Book3' },
-        { label: 'Book4' },
-        { label: 'Book5' },
-        { label: 'Book6' },
-        { label: 'Book7' },
-        { label: 'Book8' },
-        { label: 'Book9' },
-        { label: 'Book10' },
+        { label: 'Қарағанды' },
+        { label: 'Адамның кейбір' },
+        { label: 'Мен роботпын' },
+        { label: 'Қорғансыздың күні' },
+        { label: 'Абай Кунанбаев' },
+        { label: 'Көкшетау' },
+        { label: 'Қаздар қайтып' },
+        { label: 'Дулат Исабеков' },
+        { label: 'Сейтак Айбатыр' },
+        { label: 'Уақыт қайтарымы' },
     ];
 
     return (
@@ -46,7 +47,7 @@ const Search: React.FC<SearchProps> = ({ searchQuery, setSearchQuery }) => {
                     boxShadow: 'none',
                 }}
                 type='search'
-                placeholder="Search for a book..."
+                placeholder="Найти книгу..."
                 color="primary"
                 options={top10Books}
                 getOptionLabel={(option) => option.label}

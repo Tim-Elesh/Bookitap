@@ -32,7 +32,7 @@ const FeedbackForm = () => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 1000);
+        }, 500);
     }, []);
 
     if (loading) {

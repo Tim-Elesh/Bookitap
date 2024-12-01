@@ -1,4 +1,5 @@
-import { Box, Typography, IconButton, Menu, MenuItem, Dropdown, MenuButton } from '@mui/joy';
+import { Typography, IconButton, Menu, MenuItem, Dropdown, MenuButton } from '@mui/joy';
+import Box from "@mui/joy/Box"
 import MenuIcon from '@mui/icons-material/Menu';
 import BookIcon from '@mui/icons-material/AutoStories';
 import SettingsIcon from '@mui/icons-material/Settings';

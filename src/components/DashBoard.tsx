@@ -1,4 +1,5 @@
-import { Box, Alert } from "@mui/joy";
+import Box from '@mui/joy/Box';
+import Alert from '@mui/joy/Alert';
 import { useState, useEffect } from "react";
 import BookCard from "./BookCard";
 import BookModal from "../Modals/BookModal";
@@ -117,7 +118,11 @@ const DashBoard = () => {
                 <BookModal 
                     open={open} 
                     onClose={handleClose} 
-                    bookTitle={selectedBook || ""} 
+                    bookTitle={selectedBook || ""}
+                    bookAuthor={""}
+                    pdfUrl={""}
+                    epubUrl={""}
+                    coverImage={""}
                 />
             </Box>
         </Box>

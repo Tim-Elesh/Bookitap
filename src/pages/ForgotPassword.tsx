@@ -7,12 +7,12 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 const ForgotPassword = () => {
   const [email, setEmail] = useState(''); // состояние для хранения введенного email
   const [alertMessage, setAlertMessage] = useState(''); // состояние для сообщения алерта
-  const [alertColor, setAlertColor] = useState('success'); // состояние для цвета алерта (успех или ошибка)
+  const [alertColor, setAlertColor] = useState<'success' | 'danger'>('success'); // состояние для цвета алерта (успех или ошибка)
   const [alertDecorator , setAlertDecorator] = useState(<CheckCircleIcon />)
 
 
   // Функция проверки валидности email
-  const isValidEmail = (email) => {
+  const isValidEmail = (email: string) => {
     // Простое регулярное выражение для проверки email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -85,7 +85,7 @@ const ForgotPassword = () => {
         </Button>
 
         {/* Алерт с сообщением об ошибке или успешной отправке */}
-        {alertMessage && <Alert startDecorator={alertDecorator} color={alertColor}>{alertMessage}</Alert>}
+        {alertMessage && <Alert startDecorator={alertDecorator} color={alertColor as 'success' | 'danger'}>{alertMessage}</Alert>}
       </Box>
     </Box>
   );
