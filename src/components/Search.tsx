@@ -37,7 +37,7 @@ const Search: React.FC<SearchProps> = ({ searchQuery, setSearchQuery }) => {
         >
             <Autocomplete
                 inputValue={searchQuery}
-                onInputChange={(event, newInputValue) => setSearchQuery(newInputValue)}
+                onInputChange={(_, newInputValue) => setSearchQuery(newInputValue)}
                 sx={{
                     width: '100%',
                     padding: '8px',
@@ -50,7 +50,7 @@ const Search: React.FC<SearchProps> = ({ searchQuery, setSearchQuery }) => {
                 placeholder="Найти книгу..."
                 color="primary"
                 options={top10Books}
-                getOptionLabel={(option) => option.label}
+                getOptionLabel={(option) => typeof option === 'string' ? option : option.label}
                 freeSolo
                 disableClearable
                 endDecorator={<SearchIcon color="primary" 

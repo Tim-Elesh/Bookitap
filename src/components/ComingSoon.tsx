@@ -5,11 +5,15 @@ const ComingSoon = () =>{
   return(
     <Sheet
       sx={{
-
+        width: '100%',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <Typography level="h3">
-        Coming Soon...
+        В разработке...
       </Typography>
     </Sheet>
   )
